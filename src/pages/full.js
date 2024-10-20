@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { sendUrlToDeepgram } from "@/apiCalls/sendToDeepgram";
-import { uploadToCloudinary } from "@/apiCalls/uploadToCloudinary";
+import { sendUrlToDeepgram } from "./../apiCalls/sendToDeepgram";
+import { uploadToCloudinary } from "./../apiCalls/uploadToCloudinary";
 
 
 export default function Full() {

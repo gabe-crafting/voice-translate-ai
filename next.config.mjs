@@ -8,7 +8,7 @@ const nextConfig = {
     UPLOAD_PRESET: process.env.UPLOAD_PRESET,
     ELEVEN_LABS_API_KEY: process.env.ELEVEN_LABS_API_KEY,
     VOICE: process.env.VOICE
-  }
+  },
 };
 
 export default nextConfig;

@@ -1,5 +1,5 @@
-import { sendUrlToDeepgram } from "@/apiCalls/sendToDeepgram";
-import { uploadToCloudinary } from "@/apiCalls/uploadToCloudinary";
+import { sendUrlToDeepgram } from "./../apiCalls/sendToDeepgram";
+import { uploadToCloudinary } from "./../apiCalls/uploadToCloudinary";
 import React, { useState, useRef } from "react";
 
 const AudioRecorder = ({ setAudioText }) => {

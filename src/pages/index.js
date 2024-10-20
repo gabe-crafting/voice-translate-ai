@@ -1,9 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import localFont from "next/font/local";
-import styles from "@/styles/Home.module.css";
-import { Translator } from "@/components/Translator";
-import AudioRecorder from "@/components/AudioRecorder";
+import styles from "./../styles/Home.module.css";
+import { Translator } from "./../components/Translator";
+import AudioRecorder from "./../components/AudioRecorder";
 import { useState } from "react";
 
 const geistSans = localFont({

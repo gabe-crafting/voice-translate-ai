@@ -1,5 +1,5 @@
-import "@/styles/globals.css";
-import "@/styles/lazy.css"
+import "./../styles/globals.css";
+import "./../styles/lazy.css"
 
 
 export default function App({ Component, pageProps }) {
