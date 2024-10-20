@@ -11,7 +11,7 @@ export const streamAudioFromText = async (text, res) => {
     try {
         const audioStream = await client.generate({
             model_id: "eleven_multilingual_v2",
-            voice: VOICE,  // Use the voice from environment variables
+            voice: "5asM3ZxsegvXfXI5vqKQ",  // Use the voice from environment variables
             text,
             voice_settings: {
                 stability: 0.1,
@@ -28,7 +28,10 @@ export const streamAudioFromText = async (text, res) => {
         audioStream.pipe(res);
     } catch (error) {
         console.error("Error generating audio:", error);
-        res.status(500).json({ message: "Error generating audio", elevenlab_error: error });
+        res.status(500).json({
+            message: "Error generating audio",
+            elevenlab_error: JSON.stringify(error)
+        });
     }
 };
 
