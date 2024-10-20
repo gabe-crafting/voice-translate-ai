@@ -1,0 +1,17 @@
+/* TODO: make it a module or whatever */
+
+.main-button {
+    width: 300px;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.main-full {
+    padding-top: 100px;
+    max-width: 300px;
+}
+
+.full {
+    display: flex;
+    justify-content: center;
+}
