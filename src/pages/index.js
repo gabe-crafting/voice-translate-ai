@@ -16,12 +16,6 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-useEffect(() => {
-  fetch('/api/set-cookie')  // Call your Next.js API route
-    .then((res) => res.json())
-    .then((data) => console.log(data));
-}, []);
-
 export default function Home() {
   const [audioText, setAudioText] = useState(null)
   return (
