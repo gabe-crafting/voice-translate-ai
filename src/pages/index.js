@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import styles from "./../styles/Home.module.css";
 import { Translator } from "./../components/Translator";
 import AudioRecorder from "./../components/AudioRecorder";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
