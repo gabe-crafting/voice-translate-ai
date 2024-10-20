@@ -28,7 +28,7 @@ export const streamAudioFromText = async (text, res) => {
         audioStream.pipe(res);
     } catch (error) {
         console.error("Error generating audio:", error);
-        res.status(500).json({ message: "Error generating audio" });
+        res.status(500).json({ message: "Error generating audio", elevenlab_error: error });
     }
 };
 
