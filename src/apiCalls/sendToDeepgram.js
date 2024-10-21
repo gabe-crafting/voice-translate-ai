@@ -1,7 +1,6 @@
 const DEEPGRAM_API_KEY = process.env.DEEPGRAM_API_KEY;
 
 export const sendUrlToDeepgram = async (audioUrl) => {
-    console.log("audioUrl: ", audioUrl)
     const response = await fetch('https://api.deepgram.com/v1/listen?punctuate=true', {
         method: 'POST',
         headers: {

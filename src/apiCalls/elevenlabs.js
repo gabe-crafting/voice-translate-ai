@@ -21,7 +21,6 @@ export const myTextToSpeech = async (text) => {
             responseType: 'arraybuffer'
         })
 
-        console.log(response)
         if (!response.ok) { throw response.statusText; }
 
 

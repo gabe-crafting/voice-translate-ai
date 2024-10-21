@@ -15,7 +15,6 @@ const AudioRecorder = ({ setAudioText }) => {
             const cloudLink = await uploadToCloudinary(audioBlobRef.current)
             const audioText = await sendUrlToDeepgram(cloudLink)
             /* audio */
-            console.log(setAudioText)
             setAudioText && setAudioText(audioText)
         } catch (e) {
             console.error(e)

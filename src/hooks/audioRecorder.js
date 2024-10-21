@@ -10,7 +10,6 @@ export const useAudioRecorder = () => {
         setAudioSrc(null);
         setIsRecording(true);
         try {
-            console.log("startRecording")
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
             mediaRecorderRef.current = new MediaRecorder(stream);

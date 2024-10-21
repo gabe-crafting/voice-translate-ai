@@ -38,9 +38,6 @@ export const streamAudioFromText = async (text, res) => {
 export default async function handler(req, res) {
     const { text } = req.body;
 
-    console.log("ELEVEN_LABS_API_KEY", ELEVEN_LABS_API_KEY);
-    console.log("VOICE", VOICE);
-
     // Stream the generated audio directly to the frontend
     await streamAudioFromText(text, res);
 }

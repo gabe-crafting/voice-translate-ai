@@ -2,11 +2,7 @@
 const CLOUD_NAME = process.env.CLOUD_NAME;
 const UPLOAD_PRESET = process.env.UPLOAD_PRESET;
 
-console.log("CLOUD_NAME:", CLOUD_NAME)
-console.log("UPLOAD_PRESET:", UPLOAD_PRESET)
-
 export const uploadToCloudinary = async (audioBlob) => {
-    console.log(audioBlob)
     const formData = new FormData();
     formData.append('file', audioBlob);
     formData.append('upload_preset', UPLOAD_PRESET); // You can create an unsigned upload preset in Cloudinary
@@ -20,7 +16,6 @@ export const uploadToCloudinary = async (audioBlob) => {
         const data = await response.json();
 
         if (response.ok) {
-            console.log('Audio uploaded successfully:', data.secure_url);
             return data.secure_url
             // You can use `data.secure_url` for further actions, such as displaying a link to the uploaded audio
         } else {

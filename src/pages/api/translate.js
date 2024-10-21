@@ -7,7 +7,6 @@ export default async function handler(
     res
 ) {
     const { text, targetLanguage } = req.body;
-    console.log("googletranslate:GOOGLE_TRANSLATE_KEY:", GOOGLE_TRANSLATE_KEY)
 
     // Replace with your actual translation logic
     const translatedText = await fetch(
