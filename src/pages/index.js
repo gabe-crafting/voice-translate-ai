@@ -3,14 +3,12 @@ import { sendUrlToDeepgram } from "./../apiCalls/sendToDeepgram";
 import { uploadToCloudinary } from "./../apiCalls/uploadToCloudinary";
 import {AppStateContext} from "../contexts/AppStateContext";
 import {useTranslator} from "./../hooks/useTranslator";
+import {useRecorder} from "@/src/hooks/useRecorder";
 
 
 export default function Home() {
-    const [audioSrc, setAudioSrc] = useState(null);
-    const [isRecording, setIsRecording] = useState(false);
     const [status, setStatus] = useState([])
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
+    const {audioSrc, isRecording, startRecording, stopRecording} = useRecorder();
     const audioBlobRef = useRef(null);
     const [audioText, setAudioText] = useState("")
 
@@ -34,42 +32,6 @@ export default function Home() {
             console.error(e)
         }
     }
-
-    const startRecording = async () => {
-        setAudioSrc(null);
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-            mediaRecorderRef.current = new MediaRecorder(stream);
-            mediaRecorderRef.current.start();
-            setIsRecording(true);
-            setStatus(currentStatus => [...currentStatus, "start recording..."])
-
-            mediaRecorderRef.current.ondataavailable = (event) => {
-                audioChunksRef.current.push(event.data);
-            };
-
-            mediaRecorderRef.current.onstop = () => {
-                const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-                const audioUrl = URL.createObjectURL(audioBlob);
-                setAudioSrc(audioUrl);
-                audioBlobRef.current = audioBlob
-
-                /* /send to backend */
-                audioChunksRef.current = [];
-                setIsRecording(false);
-            };
-        } catch (err) {
-            console.error("Error accessing the microphone: ", err);
-        }
-    }
-
-    const stopRecording = () => {
-        if (mediaRecorderRef.current) {
-            mediaRecorderRef.current.stop();
-            setStatus(currentStatus => [...currentStatus, "stoped recording..."])
-        }
-    };
 
     const clearLogs = () => {
         setStatus([])
