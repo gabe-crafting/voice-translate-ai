@@ -1,31 +1,31 @@
 import React, {useState, createContext} from "react";
 
 export const AppStateContext = createContext({
-    currentState: "",
-    changeCurrentState: () => {},
-    states: [],
-    clearStates: () => {}
+    currentStatus: "",
+    changeCurrentStatus: () => {},
+    statuses: [],
+    clearStatuses: () => {}
 });
 
 export function AppStateContextProvider({children}) {
-    const [currentState, setCurrentState] = useState("");
-    const [states, setStates] = useState([])
+    const [currentStatus, setCurrentStatus] = useState("");
+    const [statuses, setStatuses] = useState([])
 
-    const changeCurrentState = (newState) => {
+    const changeCurrentStatus = (newStatus) => {
         // Changes the state and also adds it to the list of states
-        setCurrentState(newState)
-        setStates(prevStates => [...prevStates, newState]);
+        setCurrentStatus(newStatus)
+        setStatuses(prevStatuses => [...prevStatuses, newStatus]);
     }
 
-    const clearStates = () => {
-        setStates([])
+    const clearStatuses = () => {
+        setStatuses([])
     }
 
     const contextValue = {
-        currentState,
-        changeCurrentState,
-        states,
-        clearStates
+        currentStatus,
+        changeCurrentStatus,
+        statuses,
+        clearStatuses
     }
 
     return (

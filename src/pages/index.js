@@ -2,6 +2,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import { sendUrlToDeepgram } from "./../apiCalls/sendToDeepgram";
 import { uploadToCloudinary } from "./../apiCalls/uploadToCloudinary";
 import {AppStateContext} from "../contexts/AppStateContext";
+import {useTranslator} from "./../hooks/useTranslator";
 
 
 export default function Home() {
@@ -12,7 +13,8 @@ export default function Home() {
     const audioChunksRef = useRef([]);
     const audioBlobRef = useRef(null);
     const [audioText, setAudioText] = useState("")
-    const [translatedText, setTranslatedText] = useState("")
+
+    const {translatedText, translate} = useTranslator();
 
     const [speechSrc, setSpeechSrc] = useState(null);
     const [speechLoading, setSpeechLoading] = useState("")
@@ -71,24 +73,6 @@ export default function Home() {
 
     const clearLogs = () => {
         setStatus([])
-    }
-
-    const translate = async () => {
-        try {
-            setStatus(currentStatus => [...currentStatus, "Translating..."])
-            const response = await fetch('/api/translate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: audioText, targetLanguage: "ro" }),
-            });
-
-            const data = await response.json();
-            setTranslatedText(data.translatedText);
-        } catch (error) {
-            console.error('Error translating:', error);
-        } finally {
-            setStatus(currentStatus => [...currentStatus, "Finish translation..."])
-        }
     }
 
     const getSpeech = async () => {
