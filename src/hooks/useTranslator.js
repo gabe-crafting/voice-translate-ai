@@ -2,12 +2,12 @@ import {useContext, useState} from "react";
 import {AppStateContext} from "../contexts/AppStateContext";
 
 export const useTranslator = () => {
-    const {changeCurrentState} = useContext(AppStateContext)
+    const {changeCurrentStatus} = useContext(AppStateContext)
     const [translatedText, setTranslatedText] = useState('')
 
     const translate = async (audioText) => {
         try {
-            changeCurrentState("Translating...");
+            changeCurrentStatus("Translating...");
             const response = await fetch('/api/translate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -19,7 +19,7 @@ export const useTranslator = () => {
         } catch (error) {
             console.error('Error translating:', error);
         } finally {
-            changeCurrentState("Finish translation...")
+            changeCurrentStatus("Finish translation...")
         }
     }
 
