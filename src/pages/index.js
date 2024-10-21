@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import { sendUrlToDeepgram } from "./../apiCalls/sendToDeepgram";
 import { uploadToCloudinary } from "./../apiCalls/uploadToCloudinary";
+import {AppStateContext} from "../contexts/AppStateContext";
 
 
 export default function Home() {
@@ -15,7 +16,6 @@ export default function Home() {
 
     const [speechSrc, setSpeechSrc] = useState(null);
     const [speechLoading, setSpeechLoading] = useState("")
-
 
     const uploadAndTranscript = async () => {
         /* send to cloud */
