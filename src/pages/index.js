@@ -1,25 +1,20 @@
-import {useContext, useEffect, useRef, useState} from "react";
-import { sendUrlToDeepgram } from "./../apiCalls/sendToDeepgram";
-import { uploadToCloudinary } from "./../apiCalls/uploadToCloudinary";
-import {AppStateContext} from "../contexts/AppStateContext";
+import {useContext} from "react";
 import {useTranslator} from "./../hooks/useTranslator";
 import {useRecorder} from "../hooks/useRecorder";
 import {useSpeech} from "../hooks/useSpeech";
-
+import {AppStateContext} from "../contexts/AppStateContext";
 
 export default function Home() {
-    const [status, setStatus] = useState([])
     const {audioBlobRef, audioSrc, isRecording, startRecording, stopRecording} = useRecorder();
     const {translatedText, setTranslatedText, translate} = useTranslator();
     const {audioText, setAudioText, speechSrc, speechLoading, getSpeech, speechToText} = useSpeech()
-    const clearLogs = () => {
-        setStatus([])
-    }
+
+    const {statuses, clearStatuses} = useContext(AppStateContext);
 
     return (
         <div className="full">
             <div className="main-full">
-                <button className="main-button" onClick={clearLogs}>Clear Logs</button>
+                <button className="main-button" onClick={clearStatuses}>Clear Logs</button>
                 {!isRecording ? (
                     <button className="main-button" onClick={startRecording}>Start Recording</button>
                 ) : (
@@ -55,7 +50,7 @@ export default function Home() {
                             onChange={(e) => setTranslatedText(e.target.value)} />
                     </label>
                 </div>
-                {translatedText && <button onClick={getSpeech} disabled={speechLoading} className="main-button">
+                {translatedText && <button onClick={() => getSpeech(translatedText)} disabled={speechLoading} className="main-button">
                     {speechLoading ? 'Generating...' : 'Generate Voice'}
                 </button>}
                 {speechSrc && (
@@ -66,7 +61,7 @@ export default function Home() {
                 )}
             </div>
             <div className="main-full" style={{ paddingLeft: 20 }}>
-                {status.map((el, i) => <p key={i}>{el}</p>)}
+                {statuses.map((el, i) => <p key={i}>{el}</p>)}
             </div>
         </div>
     );
