@@ -47,6 +47,7 @@ export const useRecorder = () => {
     };
 
     return {
+        audioBlobRef,
         audioSrc,
         isRecording,
         startRecording,

@@ -25,6 +25,7 @@ export const useTranslator = () => {
 
     return {
         translatedText,
+        setTranslatedText,
         translate
     }
 }
