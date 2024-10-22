@@ -1,5 +1,5 @@
-import {useContext, useRef, useState} from "react";
-import {AppStateContext} from "../contexts/AppStateContext";
+import { useContext, useRef, useState } from "react";
+import { AppStateContext } from "../contexts/AppStateContext";
 
 export const useRecorder = () => {
     const [audioSrc, setAudioSrc] = useState(null);
@@ -9,7 +9,7 @@ export const useRecorder = () => {
     const audioChunksRef = useRef([]);
     const audioBlobRef = useRef(null);
 
-    const {changeCurrentStatus} = useContext(AppStateContext);
+    const { changeCurrentStatus } = useContext(AppStateContext);
 
     const startRecording = async () => {
         setAudioSrc(null);
@@ -27,8 +27,8 @@ export const useRecorder = () => {
             mediaRecorderRef.current.onstop = () => {
                 const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
                 const audioUrl = URL.createObjectURL(audioBlob);
-                setAudioSrc(audioUrl);
                 audioBlobRef.current = audioBlob
+                setAudioSrc(audioUrl);
 
                 /* /send to backend */
                 audioChunksRef.current = [];

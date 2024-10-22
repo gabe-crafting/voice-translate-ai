@@ -1,75 +1,81 @@
-import {useContext} from "react";
-import {useRecorder} from "./../hooks/useRecorder";
-import {useTranslator} from "./../hooks/useTranslator";
-import {useSpeech} from "./../hooks/useSpeech";
-import {AppStateContext} from "./../contexts/AppStateContext";
+import { useContext, useEffect } from "react";
+import { useRecorder } from "./../hooks/useRecorder";
+import { useTranslator } from "./../hooks/useTranslator";
+import { useSpeech } from "./../hooks/useSpeech";
+import { AppStateContext } from "./../contexts/AppStateContext";
 
 
 export default function Full() {
-    const {audioBlobRef, audioSrc, isRecording, startRecording, stopRecording} = useRecorder();
-    const {translatedText, setTranslatedText, translate} = useTranslator();
-    const {audioText, setAudioText, speechSrc, setSpeechSrc, speechLoading, getSpeech, speechToText} = useSpeech()
+    const { audioBlobRef, audioSrc, isRecording, startRecording, stopRecording } = useRecorder();
+    const { translatedText, setTranslatedText, translate } = useTranslator();
+    const { audioText, setAudioText, speechSrc, setSpeechSrc, speechLoading, getSpeech, speechToText } = useSpeech()
 
-    const {statuses, clearStatuses} = useContext(AppStateContext);
+    const { statuses, clearStatuses } = useContext(AppStateContext);
 
     const handleClickStartRecording = () => {
         clearStatuses();
         setTranslatedText("");
         setAudioText("")
-        setSpeechSrc("")
+        setSpeechSrc()
         startRecording();
     }
 
-    const handleClickStopRecording = () => {
-        stopRecording()
+    useEffect(() => {
+        if (!isRecording && audioSrc) {
+            speechToText(audioBlobRef)
+        }
+    }, [isRecording, audioSrc])
 
-        // Recorded Speech => audioText
-        //speechToText(audioBlobRef)
+    useEffect(() => {
+        if (audioText) {
+            translate(audioText)
+        }
+    }, [audioText])
 
-        // audioText => translatedText
-        //translate(audioText)
-
-        // translatedText => audioSrc
-        //getSpeech(translatedText)
-    }
+    useEffect(() => {
+        
+        if (translatedText) {
+            getSpeech(translatedText)
+        }
+    }, [translatedText])
 
     return (
         <div className="full">
             <div className="main-full">
-                { /* Recording button */ }
+                { /* Recording button */}
                 {!isRecording ? (
-                    <button className="main-button" onClick={startRecording}>Start Recording</button>
+                    <button className="main-button" onClick={handleClickStartRecording}>Start Recording</button>
                 ) : (
                     <button className="main-button" onClick={stopRecording}>Stop Recording</button>
                 )}
 
-                { /* English playback */ }
-                { audioSrc && (
+                { /* English playback */}
+                {audioSrc && (
                     <>
                         <audio controls>
-                            <source src={audioSrc} type="audio/wav"/>
+                            <source src={audioSrc} type="audio/wav" />
                             Your browser does not support the audio element.
                         </audio>
                     </>
                 )}
 
-                { /* English Transcript */ }
-                { audioText &&
+                { /* English Transcript */}
+                {audioText &&
                     (
-                    <div style={{marginTop: 10, marginBottom: 10}}>
-                        <label>
-                            <b>English transcribed Voice</b>
-                            <div className="paragraph-container">
-                                <p>{audioText}</p>
-                            </div>
-                        </label>
-                    </div>
+                        <div style={{ marginTop: 10, marginBottom: 10 }}>
+                            <label>
+                                <b>English transcribed Voice</b>
+                                <div className="paragraph-container">
+                                    <p>{audioText}</p>
+                                </div>
+                            </label>
+                        </div>
                     )
                 }
 
                 { /* Romanian Transcript */}
-                { translatedText && (
-                    <div style={{marginTop: 10, marginBottom: 10}}>
+                {translatedText && (
+                    <div style={{ marginTop: 10, marginBottom: 10 }}>
                         <label>
                             <b>Romanian Translation</b>
                             <div className="paragraph-container">
@@ -81,14 +87,14 @@ export default function Full() {
                 }
 
                 { /*  Romanian playback */}
-                { speechSrc && (
-                    <div style={{marginTop: 10, marginBottom: 10}}>
+                {speechSrc && (
+                    <div style={{ marginTop: 10, marginBottom: 10 }}>
                         <b>Romanian Voice</b>
-                        <audio controls src={speechSrc}/>
+                        <audio controls src={speechSrc} />
                     </div>
                 )}
             </div>
-            <div className="main-full" style={{paddingLeft: 20}}>
+            <div className="main-full" style={{ paddingLeft: 20 }}>
                 {statuses.map((el, i) => <p key={i}>{el}</p>)}
             </div>
         </div>
