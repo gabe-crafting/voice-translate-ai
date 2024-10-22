@@ -61,6 +61,7 @@ export const useSpeech = () => {
         setAudioText,
         speechSrc,
         speechLoading,
+        setSpeechSrc,
         getSpeech,
         speechToText
     }

@@ -15,3 +15,9 @@
     display: flex;
     justify-content: center;
 }
+
+.paragraph-container {
+    word-wrap: break-word;
+    padding-top: 0.5rem;
+    max-width: 20rem;
+}
