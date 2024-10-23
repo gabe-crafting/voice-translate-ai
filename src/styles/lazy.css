@@ -21,3 +21,20 @@
     padding-top: 0.5rem;
     max-width: 20rem;
 }
+
+.header-container {
+    display: flex;
+    min-width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color:  #1a1a1a;
+}
+
+.header-container li {
+    padding: 1rem;
+}
+
+.header-container li:hover {
+    background-color: #383838;
+}
