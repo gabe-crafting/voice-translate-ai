@@ -22,3 +22,33 @@ export const sendUrlToDeepgram = async (audioUrl) => {
     const result = await response.json();
     return result.results.channels[0].alternatives[0].transcript;
 }
+
+export const sendUrlToDeepgramRO = async (audioUrl) => {
+    const endpoint = "https://api.deepgram.com/v1/listen?punctuate=true&model=nova-2&language=ro"
+
+    // fetch headers
+    const headers = {
+        Authorization: `Token ${DEEPGRAM_API_KEY}`,
+        "Content-Type": "application/json",
+    }
+
+    // fetch options
+    const options = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+            url: audioUrl,
+        }),
+    }
+
+    const response = await fetch(endpoint, options)
+
+    if (!response.ok) {
+        const errorResponse = await response.text();
+        console.error('Deepgram API Error:', errorResponse);
+        throw new Error(`Failed to transcribe audio: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    return result.results.channels[0].alternatives[0].transcript;
+}
