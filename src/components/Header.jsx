@@ -9,9 +9,6 @@ const Header = () => {
             <Link href="/full">
                 <li>en-ro</li>
             </Link>
-            <Link href="/ro-en">
-                <li>ro-en</li>
-            </Link>
             <Link href="/posthelper">
                 <li>Post helper</li>
             </Link>

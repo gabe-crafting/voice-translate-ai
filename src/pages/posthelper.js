@@ -6,7 +6,7 @@ import useGPT from "./../hooks/useGPT";
 
 export default function PostHelper() {
     const {audioBlobRef, audioSrc, isRecording, startRecording, stopRecording} = useRecorder();
-    const {audioText, setAudioText, speechSrc, setSpeechSrc, speechLoading, getSpeech, speechToText} = useSpeech();
+    const {audioText, setAudioText, speechToText} = useSpeech();
     const {statuses, clearStatuses, changeCurrentStatus} = useContext(AppStateContext);
     const [chatGPTInst, setChatGPTInst] = useState("");
     const {response, getChatGPTResponse} = useGPT()
