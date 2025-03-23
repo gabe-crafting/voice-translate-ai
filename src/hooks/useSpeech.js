@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { uploadToCloudinary } from "../apiCalls/uploadToCloudinary";
-import { sendUrlToDeepgram } from "../apiCalls/sendToDeepgram";
+import { sendUrlToDeepgram, sendUrlToDeepgramRO } from "../apiCalls/sendToDeepgram";
 import { AppStateContext } from "../contexts/AppStateContext";
 
 export const useSpeech = () => {
@@ -30,7 +30,7 @@ export const useSpeech = () => {
                 const blob = await response.blob();
                 const audioUrl = URL.createObjectURL(blob); // Create a URL for the audio blob
                 changeCurrentStatus("Finish generating romanian speech...");
-                
+
                 setSpeechSrc(audioUrl); // Set the audio URL to the state to play it
             } else {
                 changeCurrentStatus((<span style={{ color: "red" }}>Faild generating audio</span>));
@@ -46,14 +46,37 @@ export const useSpeech = () => {
     const speechToText = async (audioBlobRef) => {
         /* send to cloud */
         try {
+            /* cloudinary */
             console.log(audioBlobRef.current)
             changeCurrentStatus("Upload to Cloudinary...");
             const cloudLink = await uploadToCloudinary(audioBlobRef.current)
             changeCurrentStatus("Uploaded to Cloudinary...");
             console.log("cloudLink", cloudLink)
 
+            /* deepgram */
             changeCurrentStatus("Send record to deepgram...")
             const audioText = await sendUrlToDeepgram(cloudLink)
+            changeCurrentStatus("Record to deepgram sent...")
+
+            /* audio */
+            setAudioText(audioText)
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    const speechToTextRo = async (audioBlobRef) => {
+        try {
+            /* cloudinary */
+            console.log(audioBlobRef.current)
+            changeCurrentStatus("Upload to Cloudinary...");
+            const cloudLink = await uploadToCloudinary(audioBlobRef.current)
+            changeCurrentStatus("Uploaded to Cloudinary...");
+            console.log("cloudLink", cloudLink)
+
+            /* deepgram */
+            changeCurrentStatus("Send record to deepgram...")
+            const audioText = await sendUrlToDeepgramRO(cloudLink)
             changeCurrentStatus("Record to deepgram sent...")
 
             /* audio */
@@ -70,6 +93,7 @@ export const useSpeech = () => {
         speechLoading,
         setSpeechSrc,
         getSpeech,
-        speechToText
+        speechToText,
+        speechToTextRo
     }
 }

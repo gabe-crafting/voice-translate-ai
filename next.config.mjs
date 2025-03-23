@@ -7,7 +7,8 @@ const nextConfig = {
     CLOUD_NAME: process.env.CLOUD_NAME,
     UPLOAD_PRESET: process.env.UPLOAD_PRESET,
     ELEVEN_LABS_API_KEY: process.env.ELEVEN_LABS_API_KEY,
-    VOICE: process.env.VOICE
+    VOICE: process.env.VOICE,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
 };
 

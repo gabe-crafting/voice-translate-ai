@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useRecorder } from "./../hooks/useRecorder";
-import { useTranslator } from "./../hooks/useTranslator";
 import { useSpeech } from "./../hooks/useSpeech";
+import { useTranslator } from "./../hooks/useTranslator";
 import { AppStateContext } from "./../contexts/AppStateContext";
 
 
